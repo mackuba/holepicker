@@ -2,6 +2,7 @@ require 'find'
 require 'holepicker/gem'
 require 'holepicker/offline_database'
 require 'holepicker/online_database'
+require 'rainbow'
 
 module HolePicker
   class Scanner
@@ -44,9 +45,11 @@ module HolePicker
       if count == 0
         puts "OK"
       else
-        puts "#{count} vulnerable gem#{'s' if count > 1} found!"
+        puts "#{count} vulnerable gem#{'s' if count > 1} found!".color(:red)
 
         vulnerable_gems.each { |gem, list| puts "- #{gem}" }
+
+        puts
       end
     end
   end

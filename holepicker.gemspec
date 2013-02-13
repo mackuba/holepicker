@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.email = "jakub.suder@gmail.com"
 
   s.add_dependency 'json', '>= 1.7.7'
+  s.add_dependency 'rainbow', '>= 1.1.4'
 
   s.files = %w(MIT-LICENSE README.markdown Changelog.markdown Gemfile Gemfile.lock) + Dir['lib/**/*']
 
