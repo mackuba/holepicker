@@ -10,6 +10,7 @@ module HolePicker
       @paths = paths.is_a?(Array) ? paths : [paths]
       @options = options || {}
       @database = options[:offline] ? OfflineDatabase.load : OnlineDatabase.load
+      @ignored = options[:ignored_gems] || []
     end
 
     def scan
@@ -39,6 +40,8 @@ module HolePicker
       print "#{path}: "
 
       gems = read_gemfile(path)
+      gems.delete_if { |g| @ignored.include?(g.name) }
+
       vulnerable_gems = gems.select { |g| vulnerabilities_for_gem(g).length > 0 }
       count = vulnerable_gems.length
 

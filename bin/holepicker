@@ -11,6 +11,10 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename($0)} [options] paths..."
 
+  opts.on("-i", "--ignore gem1,gem2,gem3", Array, "Ignore given gems") do |names|
+    options[:ignored_gems] = names
+  end
+
   opts.on("-o", "--offline", "Use an offline copy of the data.json file") do
     options[:offline] = true
   end
