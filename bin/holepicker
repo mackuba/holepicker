@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require 'holepicker'
+require 'optparse'
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{File.basename($0)} [options] paths..."
+
+  opts.on("-o", "--offline", "Use an offline copy of the data.json file") do
+    options[:offline] = true
+  end
+
+  opts.on("-h", "--help", "Display this help") do
+    puts opts
+    exit
+  end
+
+  opts.on("-v", "--version", "Print gem version") do
+    puts HolePicker::VERSION
+    exit
+  end
+
+  opts.parse!
+end
+
+if ARGV.empty?
+  abort "Please choose at least one directory to scan for gemfiles."
+end
+
+HolePicker::Scanner.new(ARGV, options).scan
