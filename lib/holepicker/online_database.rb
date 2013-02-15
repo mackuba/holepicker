@@ -6,8 +6,6 @@ module HolePicker
   class OnlineDatabase < Database
     # TODO temporary link
     URL='http://pastie.org/pastes/6183429/download?key=qryhowarb9i7hoqqyvy0q'
-    NEW_VULNERABILITY_DAYS = 7
-    NEW_VULNERABILITY_TIME = NEW_VULNERABILITY_DAYS * 86400
 
     def self.load
       puts "Fetching list of vulnerabilities..."
@@ -40,11 +38,12 @@ module HolePicker
     end
 
     def report_new_vulnerabilities
-      new_vulnerabilities = @vulnerabilities.select { |v| v.date > Time.now - NEW_VULNERABILITY_TIME }
+      new_vulnerabilities = @vulnerabilities.select(&:recent?)
       count = new_vulnerabilities.length
 
       if count > 0
-        puts "#{count} new #{Utils.pluralize(count, 'vulnerability')} found in the last #{NEW_VULNERABILITY_DAYS} days:"
+        puts "#{count} new #{Utils.pluralize(count, 'vulnerability')} found in the last " +
+          "#{Vulnerability::NEW_VULNERABILITY_DAYS} days:"
 
         new_vulnerabilities.each do |v|
           puts "#{v.day} (#{v.gem_names.join(', ')}): #{v.url}"
