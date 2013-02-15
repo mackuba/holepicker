@@ -45,7 +45,7 @@
     },
     {
       "gems": {
-        "rails": ["3.2.10", "3.1.9", "3.0.18"]
+        "rails": ["3.2.10", "3.1.9", "3.0.18", "2.3.15"]
       },
       "url": "http://weblog.rubyonrails.org/2013/1/2/Rails-3-2-10--3-1-9--and-3-0-18-have-been-released/",
       "date": "2013-01-02T21:39Z"

@@ -5,7 +5,7 @@ require 'net/http'
 module HolePicker
   class OnlineDatabase < Database
     # TODO temporary link
-    URL='http://pastie.org/pastes/6183233/download?key=p71kbuftfymu8xxdqpejw'
+    URL='http://pastie.org/pastes/6183429/download?key=qryhowarb9i7hoqqyvy0q'
     NEW_VULNERABILITY_DAYS = 7
     NEW_VULNERABILITY_TIME = NEW_VULNERABILITY_DAYS * 86400
 
