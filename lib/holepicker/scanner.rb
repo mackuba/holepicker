@@ -32,6 +32,8 @@ module HolePicker
       @paths.each { |p| scan_path(p) }
 
       print_report
+
+      @matched_gems == 0
     end
 
 

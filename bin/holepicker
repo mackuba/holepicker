@@ -48,4 +48,6 @@ if ARGV.empty?
   abort "Please choose at least one directory to scan for gemfiles."
 end
 
-HolePicker::Scanner.new(ARGV, options).scan
+success = HolePicker::Scanner.new(ARGV, options).scan
+
+exit(success ? 0 : 1)
