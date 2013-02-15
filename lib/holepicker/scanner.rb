@@ -26,7 +26,7 @@ module HolePicker
     end
 
     def find_gemfiles_in_path(path)
-      Find.find(path).select { |f| File.basename(f) == 'Gemfile.lock' }
+      %x(find #{path} -name 'Gemfile.lock').lines.map(&:strip)
     end
 
     def read_gemfile(path)
