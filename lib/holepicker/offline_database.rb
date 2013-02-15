@@ -1,5 +1,4 @@
 require 'holepicker/database'
-require 'json'
 
 module HolePicker
   class OfflineDatabase < Database

@@ -1,4 +1,5 @@
 require 'holepicker/vulnerability'
+require 'json'
 require 'rubygems'
 
 module HolePicker
