@@ -11,10 +11,10 @@ module HolePicker
 
     def initialize(paths, options = {})
       @paths = paths.is_a?(Array) ? paths : [paths]
-      @options = options || {}
       @database = options[:offline] ? OfflineDatabase.load : OnlineDatabase.load
       @ignored = options[:ignored_gems] || []
       @skip = !options[:dont_skip]
+      @current = options[:current]
     end
 
     def scan
@@ -30,11 +30,12 @@ module HolePicker
 
     def find_gemfiles_in_path(path)
       skips = SKIPPED_DIRECTORIES.join(" -or ")
+      gemfiles = @current ? "-path '*/current/Gemfile.lock'" : "-name 'Gemfile.lock'"
 
       command = if @skip
-        "find -L #{path} \\( #{skips} \\) -prune -or -name 'Gemfile.lock' -print"
+        "find -L #{path} \\( #{skips} \\) -prune -or #{gemfiles} -print"
       else
-        "find -L #{path} -name 'Gemfile.lock'"
+        "find -L #{path} #{gemfiles}"
       end
 
       puts "Looking for gemfiles..."

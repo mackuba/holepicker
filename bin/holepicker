@@ -15,6 +15,10 @@ OptionParser.new do |opts|
     options[:dont_skip] = true
   end
 
+  opts.on("-c", "--current", "Look only for gemfiles in 'current' directories") do
+    options[:current] = true
+  end
+
   opts.on("-i", "--ignore gem1,gem2,gem3", Array, "Ignore given gems") do |names|
     options[:ignored_gems] = names
   end
