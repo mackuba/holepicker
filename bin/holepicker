@@ -19,6 +19,10 @@ OptionParser.new do |opts|
     options[:current] = true
   end
 
+  opts.on("-f", "--follow-roots", "Follow root/DocumentRoot paths in Nginx/Apache configs to find Gemfiles") do
+    options[:follow_roots] = true
+  end
+
   opts.on("-i", "--ignore gem1,gem2,gem3", Array, "Ignore given gems") do |names|
     options[:ignored_gems] = names
   end

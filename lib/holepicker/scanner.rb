@@ -11,13 +11,18 @@ module HolePicker
 
     def initialize(paths, options = {})
       @paths = paths.is_a?(Array) ? paths : [paths]
+
       @database = options[:offline] ? OfflineDatabase.load : OnlineDatabase.load
+
       @ignored = options[:ignored_gems] || []
       @skip = !options[:dont_skip]
       @current = options[:current]
+      @roots = options[:follow_roots]
     end
 
     def scan
+      puts "Looking for gemfiles..."
+
       @paths.each { |p| scan_path(p) }
     end
 
@@ -38,9 +43,18 @@ module HolePicker
         "find -L #{path} #{gemfiles}"
       end
 
-      puts "Looking for gemfiles..."
+      run_and_read_lines(command)
+    end
 
-      %x(#{command}).lines.map(&:strip)
+    def find_gemfiles_in_configs(path)
+      configs = run_and_read_lines("find -L #{path} -type f -or -type l")
+      configs.select! { |f| File.exist?(f) } # skip broken links
+
+      directories = configs.map do |f|
+        File.read(f).scan(%r{\b(?:root|DocumentRoot)\s+(.*)/public\b})
+      end
+
+      directories.flatten.map { |dir| "#{dir}/Gemfile.lock" }
     end
 
     def read_gemfile(path)
@@ -48,7 +62,8 @@ module HolePicker
     end
 
     def scan_path(path)
-      find_gemfiles_in_path(path).each { |f| scan_gemfile(f) }
+      gemfiles = @roots ? find_gemfiles_in_configs(path) : find_gemfiles_in_path(path)
+      gemfiles.each { |f| scan_gemfile(f) }
     end
 
     def scan_gemfile(path)
@@ -69,6 +84,10 @@ module HolePicker
 
         puts
       end
+    end
+
+    def run_and_read_lines(command)
+      %x(#{command}).lines.map(&:strip)
     end
   end
 end
