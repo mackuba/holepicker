@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
 
   s.files = %w(MIT-LICENSE README.markdown Changelog.markdown Gemfile Gemfile.lock) + Dir['lib/**/*']
 
-  s.executables = ['bin/holepicker']
+  s.executables = %w(holepicker)
 end
