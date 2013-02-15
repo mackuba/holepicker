@@ -1,9 +1,9 @@
-require 'find'
 require 'holepicker/gem'
 require 'holepicker/offline_database'
 require 'holepicker/online_database'
 require 'holepicker/utils'
 require 'rainbow'
+require 'set'
 
 module HolePicker
   class Scanner
@@ -25,7 +25,13 @@ module HolePicker
     def scan
       puts "Looking for gemfiles..."
 
+      @found_vulnerabilities = Set.new
+      @matched_gemfiles = 0
+      @matched_gems = 0
+
       @paths.each { |p| scan_path(p) }
+
+      print_report
     end
 
 
@@ -73,7 +79,9 @@ module HolePicker
       gems = read_gemfile(path)
       gems.delete_if { |g| @ignored.include?(g.name) }
 
-      vulnerable_gems = gems.select { |g| vulnerabilities_for_gem(g).length > 0 }
+      vulnerable_gems = gems.map { |g| [g, vulnerabilities_for_gem(g)] }
+      vulnerable_gems.delete_if { |g, v| v.empty? }
+
       count = vulnerable_gems.length
 
       if count == 0
@@ -81,9 +89,29 @@ module HolePicker
       else
         puts "#{count} vulnerable #{Utils.pluralize(count, 'gem')} found!".color(:red)
 
-        vulnerable_gems.each { |gem, list| puts "- #{gem}" }
+        vulnerable_gems.each do |gem, vulnerabilities|
+          puts "- #{gem} [#{vulnerabilities.map(&:tag).join(',')}]"
+
+          @found_vulnerabilities.merge(vulnerabilities)
+          @matched_gems += 1
+        end
+
+        @matched_gemfiles += 1
 
         puts
+      end
+    end
+
+    def print_report
+      if @matched_gemfiles == 0
+        puts "No vulnerabilities found."
+      else
+        puts ("#{@matched_gems} vulnerable #{Utils.pluralize(@matched_gems, 'gem')} found in " +
+          "#{@matched_gemfiles} #{Utils.pluralize(@matched_gemfiles, 'gemfile')}!").color(:red) + "\n\n"
+
+        @found_vulnerabilities.sort_by(&:id).each do |v|
+          puts "[#{v.tag}] #{v.day}: #{v.url}"
+        end
       end
     end
 

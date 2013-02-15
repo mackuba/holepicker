@@ -9,7 +9,7 @@ module HolePicker
     end
 
     def initialize(json)
-      @vulnerabilities = json['vulnerabilities'].map { |v| Vulnerability.new(v) }
+      @vulnerabilities = json['vulnerabilities'].reverse.map { |v| Vulnerability.new(v) }
     end
   end
 end
