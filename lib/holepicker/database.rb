@@ -1,4 +1,5 @@
 require 'holepicker/vulnerability'
+require 'rubygems'
 
 module HolePicker
   class Database
@@ -10,6 +11,11 @@ module HolePicker
 
     def initialize(json)
       @vulnerabilities = json['vulnerabilities'].reverse.map { |v| Vulnerability.new(v) }
+      @min_version = ::Gem::Version.new(json['min_version'])
+    end
+
+    def compatible?
+      HolePicker.version >= @min_version
     end
   end
 end
