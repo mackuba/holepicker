@@ -11,15 +11,15 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename($0)} [options] paths..."
 
-  opts.on("-a", "--all", "Don't skip any directories like .git or tmp while looking for gemfiles") do
+  opts.on("-a", "--all", "Don't skip directories like .git or tmp while looking for gemfiles") do
     options[:dont_skip] = true
   end
 
-  opts.on("-c", "--current", "Look only for gemfiles in 'current' directories") do
+  opts.on("-c", "--current", "Look for gemfiles only in 'current' directories") do
     options[:current] = true
   end
 
-  opts.on("-f", "--follow-roots", "Follow root/DocumentRoot paths in Nginx/Apache configs to find Gemfiles") do
+  opts.on("-f", "--follow-roots", "Follow root/DocumentRoot paths in Nginx/Apache configs to find gemfiles") do
     options[:follow_roots] = true
   end
 
