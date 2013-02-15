@@ -11,6 +11,10 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename($0)} [options] paths..."
 
+  opts.on("-a", "--all", "Don't skip any directories like .git or tmp while looking for gemfiles") do
+    options[:dont_skip] = true
+  end
+
   opts.on("-i", "--ignore gem1,gem2,gem3", Array, "Ignore given gems") do |names|
     options[:ignored_gems] = names
   end
