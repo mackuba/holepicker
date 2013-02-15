@@ -48,13 +48,14 @@ module HolePicker
 
     def find_gemfiles_in_configs(path)
       configs = run_and_read_lines("find -L #{path} -type f -or -type l")
-      configs.select! { |f| File.exist?(f) } # skip broken links
+      configs = select_existing(configs)
 
       directories = configs.map do |f|
         File.read(f).scan(%r{\b(?:root|DocumentRoot)\s+(.*)/public\b})
       end
 
-      directories.flatten.map { |dir| "#{dir}/Gemfile.lock" }
+      gemfiles = directories.flatten.map { |dir| "#{dir}/Gemfile.lock" }
+      select_existing(gemfiles)
     end
 
     def read_gemfile(path)
@@ -84,6 +85,10 @@ module HolePicker
 
         puts
       end
+    end
+
+    def select_existing(files)
+      files.select { |f| File.exist?(f) }
     end
 
     def run_and_read_lines(command)
