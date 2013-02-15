@@ -8,6 +8,8 @@ require 'rainbow'
 module HolePicker
   class Scanner
     SKIPPED_DIRECTORIES = ["-name cached-copy", "-path '*/bundle/ruby'", "-name tmp", "-name '.*'"]
+    ROOT_LINE_PATTERN = %r{\b(?:root|DocumentRoot)\s+(.*)/public\b}
+    GEMFILE_GEM_PATTERN = %r(^ {4}[^ ])
 
     def initialize(paths, options = {})
       @paths = paths.is_a?(Array) ? paths : [paths]
@@ -50,16 +52,14 @@ module HolePicker
       configs = run_and_read_lines("find -L #{path} -type f -or -type l")
       configs = select_existing(configs)
 
-      directories = configs.map do |f|
-        File.read(f).scan(%r{\b(?:root|DocumentRoot)\s+(.*)/public\b})
-      end
-
+      directories = configs.map { |f| File.read(f).scan(ROOT_LINE_PATTERN) }
       gemfiles = directories.flatten.map { |dir| "#{dir}/Gemfile.lock" }
+
       select_existing(gemfiles)
     end
 
     def read_gemfile(path)
-      File.readlines(path).select { |l| l =~ /^ {4}[^ ]/ }.map { |l| Gem.new(l) }
+      File.readlines(path).select { |l| l =~ GEMFILE_GEM_PATTERN }.map { |l| Gem.new(l) }
     end
 
     def scan_path(path)
