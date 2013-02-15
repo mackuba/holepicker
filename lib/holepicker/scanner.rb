@@ -7,6 +7,8 @@ require 'rainbow'
 
 module HolePicker
   class Scanner
+    SKIPPED_DIRECTORIES = ["-name cached-copy", "-path '*/bundle/ruby'", "-name tmp", "-name '.*'"]
+
     def initialize(paths, options = {})
       @paths = paths.is_a?(Array) ? paths : [paths]
       @options = options || {}
@@ -26,7 +28,8 @@ module HolePicker
     end
 
     def find_gemfiles_in_path(path)
-      %x(find #{path} -name 'Gemfile.lock').lines.map(&:strip)
+      skips = SKIPPED_DIRECTORIES.join(" -or ")
+      %x(find -L #{path} \\( #{skips} \\) -prune -or -name 'Gemfile.lock' -print).lines.map(&:strip)
     end
 
     def read_gemfile(path)
