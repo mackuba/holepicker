@@ -1,0 +1,18 @@
+PATH
+  remote: .
+  specs:
+    holepicker (0.1)
+      json (>= 1.7.7)
+      rainbow (>= 1.1.4)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    json (1.7.7)
+    rainbow (1.1.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  holepicker!
