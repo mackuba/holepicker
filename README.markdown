@@ -90,3 +90,5 @@ It might make sense to agree on a shared list of vulnerabilities in the future t
 Created by [Jakub Suder](http://psionides.eu), licensed under MIT License.
 
 Any feedback and help is welcome, if you have an idea how to improve this tool, let me know or send me an issue or a pull request.
+
+And BTW, big thanks to all the smart people that find and fix all these issues - I hope you won't find much more, but please keep looking.
