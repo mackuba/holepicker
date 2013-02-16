@@ -2,6 +2,7 @@
 
 HolePicker is a Ruby gem for quickly checking all your `Gemfile.lock` files for gem versions with known vulnerabilities.
 
+[![Build Status](https://travis-ci.org/psionides/holepicker.png?branch=master)](https://travis-ci.org/psionides/holepicker)
 
 ## The story
 
