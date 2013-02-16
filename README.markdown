@@ -50,7 +50,7 @@ You might have a lot of random apps deployed in the `/var/www` directory, but on
 
 This is more or less what you will get if you run HolePicker in a directory with some old Rails projects:
 
-![screenshot](http://f.cl.ly/items/2G0e3734093e443R2N1N/Screen%20Shot%202013-02-16%20at%2000.46.46.png)
+![screenshot](http://f.cl.ly/items/1l3C2c2s0r1k3v033B34/Screen%20Shot%202013-02-16%20at%2001.43.39.png)
 
 
 ## Full option list
