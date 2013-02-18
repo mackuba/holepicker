@@ -4,8 +4,7 @@ require 'net/http'
 
 module HolePicker
   class OnlineDatabase < Database
-    # TODO temporary link
-    URL='http://pastie.org/pastes/6183429/download?key=qryhowarb9i7hoqqyvy0q'
+    URL='https://raw.github.com/jsuder/holepicker/master/lib/holepicker/data/data.json'
 
     def self.load
       puts "Fetching list of vulnerabilities..."

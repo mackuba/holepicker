@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name = "holepicker"
   s.version = HolePicker::VERSION
   s.summary = "A tool for checking gem versions in Gemfile.lock files for known vulnerabilities"
-  s.homepage = "http://github.com/psionides/holepicker"
+  s.homepage = "http://github.com/jsuder/holepicker"
 
   s.author = "Jakub Suder"
   s.email = "jakub.suder@gmail.com"
