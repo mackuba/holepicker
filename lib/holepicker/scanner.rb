@@ -71,6 +71,7 @@ module HolePicker
     end
 
     def scan_path(path)
+      path = File.expand_path(path)
       gemfiles = @roots ? find_gemfiles_in_configs(path) : find_gemfiles_in_path(path)
       gemfiles.each { |f| scan_gemfile(f) }
     end
