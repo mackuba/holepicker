@@ -49,6 +49,15 @@ You might have a lot of random apps deployed in the `/var/www` directory, but on
     holepicker -f /etc/nginx/sites-enabled
 
 
+## Integrate with capistrano
+
+To automatically check for vulnerabilities before a deployment with capistrano, you can add the holepicker capistrano recipe.
+
+1. Add `gem 'holepicker'` to your `Gemfile`
+2. Add `require 'holepicker/capistrano'` to your `config/deploy.rb`
+
+This will introduce a `cap holepicker` task which will be executed before the `cap deploy` task.
+
 ## Results
 
 This is more or less what you will get if you run HolePicker in a directory with some old Rails projects:
