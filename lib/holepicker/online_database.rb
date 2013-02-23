@@ -1,6 +1,7 @@
 require 'holepicker/database'
 require 'holepicker/utils'
 require 'net/http'
+require 'net/https'
 
 module HolePicker
   class OnlineDatabase < Database
