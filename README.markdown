@@ -85,7 +85,7 @@ There are a few other projects with a similar purpose, take a look if HolePicker
 * [bundler-organization_audit](https://github.com/grosser/bundler-organization_audit) - scans all your projects on GitHub
 * [ruby-advisory-db](https://github.com/rubysec/ruby-advisory-db) - a shared database of vulnerabilities - I'll try to integrate holepicker with it later
 * [gemcanary](https://gemcanary.com/) - some kind of web service, not released yet (as of 23.02)
-
+* [gems-status](https://github.com/jordimassaguerpla/gems-status) - a more general tool for checking everything that might be wrong with your gems (work in progress)
 
 ## Credits & contributing
 
