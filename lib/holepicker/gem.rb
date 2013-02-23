@@ -2,7 +2,7 @@ require 'rubygems'
 
 module HolePicker
   class Gem
-    GEM_LINE_PATTERN = /([\w\-]+) \(([^)]+)\)/
+    GEM_LINE_PATTERN = /([\w\-]+) \(([\d\w]+(\.[\d\w]+)*)(\-\w+)*\)/
 
     attr_reader :name, :version
 
