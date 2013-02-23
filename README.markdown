@@ -79,11 +79,12 @@ Use an offline copy of the data file - useful if you really need to run the tool
 
 ## Similar projects
 
-The [bundler-audit](https://github.com/postmodern/bundler-audit) project that was also created this week has a similar purpose, but it only uses an offline issue list and it only scans the current project.
+There are a few other projects with a similar purpose, take a look if HolePicker isn't exactly what you need:
 
-The [gemcanary](https://gemcanary.com/) project might be something similar, but it hasn't been released yet (as of 16.02).
-
-It might make sense to agree on a shared list of vulnerabilities in the future that these and other projects could share - no point having the same information in a few different places maintained by a few people in parallel.
+* [bundler-audit](https://github.com/postmodern/bundler-audit) - scans the current project when the app is loaded
+* [bundler-organization_audit](https://github.com/grosser/bundler-organization_audit) - scans all your projects on GitHub
+* [ruby-advisory-db](https://github.com/rubysec/ruby-advisory-db) - a shared database of vulnerabilities - I'll try to integrate holepicker with it later
+* [gemcanary](https://gemcanary.com/) - some kind of web service, not released yet (as of 23.02)
 
 
 ## Credits & contributing
