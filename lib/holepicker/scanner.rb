@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'holepicker/gem'
 require 'holepicker/offline_database'
 require 'holepicker/online_database'
@@ -89,7 +91,7 @@ module HolePicker
       count = vulnerable_gems.length
 
       if count == 0
-        puts "OK"
+        puts "✔".color(:green)
       else
         puts "#{count} vulnerable #{Utils.pluralize(count, 'gem')} found!".color(:red)
 
