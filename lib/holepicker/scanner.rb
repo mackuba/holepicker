@@ -26,6 +26,7 @@ module HolePicker
       puts "Looking for gemfiles..."
 
       @found_vulnerabilities = Set.new
+      @scanned_gemfiles = 0
       @matched_gemfiles = 0
       @matched_gems = 0
 
@@ -103,10 +104,14 @@ module HolePicker
 
         puts
       end
+
+      @scanned_gemfiles += 1
     end
 
     def print_report
-      if @matched_gemfiles == 0
+      if @scanned_gemfiles == 0
+        puts "No gemfiles found - are you sure the paths are correct?".color(:red)
+      elsif @matched_gemfiles == 0
         puts "No vulnerabilities found."
       else
         puts(("#{@matched_gems} vulnerable #{Utils.pluralize(@matched_gems, 'gem')} found in " +
