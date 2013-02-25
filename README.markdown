@@ -40,6 +40,8 @@ You can also scan all apps deployed to a production or demo server; in this case
 
     holepicker -c /var/www
 
+HolePicker will return a non-zero status code if vulnerabilities are found, so you could wrap it in some kind of script that's run periodically from cron that notifies you when something is wrong.
+
 ### Scanning Nginx/Apache config directory
 
 You might have a lot of random apps deployed in the `/var/www` directory, but only some of them currently enabled in the Nginx config files. In this case, you might want to only check the apps that are actually running. To do that, use the `-f` (`--follow-roots`) option and point HolePicker to your HTTP server's config directory. It will find all the `root` or `DocumentRoot` directives and follow the paths to find the gemfiles of enabled apps.
