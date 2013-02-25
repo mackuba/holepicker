@@ -114,8 +114,11 @@ module HolePicker
       elsif @matched_gemfiles == 0
         puts "No vulnerabilities found."
       else
-        puts(("#{@matched_gems} vulnerable #{Utils.pluralize(@matched_gems, 'gem')} found in " +
-          "#{@matched_gemfiles} #{Utils.pluralize(@matched_gemfiles, 'gemfile')}!").color(:red) + "\n\n")
+        gems = Utils.pluralize(@matched_gems, 'gem')
+        gemfiles = Utils.pluralize(@matched_gemfiles, 'gemfile')
+
+        warning = "#{@matched_gems} vulnerable #{gems} found in #{@matched_gemfiles} #{gemfiles}!\n"
+        puts warning.color(:red)
 
         @found_vulnerabilities.sort_by(&:id).each do |v|
           puts "[#{v.tag}] #{v.day}: #{v.url}"
