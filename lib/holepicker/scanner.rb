@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 require 'holepicker/gem'
+require 'holepicker/config_gemfile_finder'
+require 'holepicker/direct_gemfile_finder'
 require 'holepicker/offline_database'
 require 'holepicker/online_database'
 require 'holepicker/utils'
@@ -9,8 +11,6 @@ require 'set'
 
 module HolePicker
   class Scanner
-    SKIPPED_DIRECTORIES = ["-name cached-copy", "-path '*/bundle/ruby'", "-name tmp", "-name '.*'"]
-    ROOT_LINE_PATTERN = %r{\b(?:root|DocumentRoot)\s+(.*)/public\b}
     GEMFILE_GEM_PATTERN = %r(^ {4}[^ ])
 
     def initialize(paths, options = {})
@@ -18,10 +18,16 @@ module HolePicker
 
       @database = options[:offline] ? OfflineDatabase.load : OnlineDatabase.load
 
+      @finder = if options[:follow_roots]
+        ConfigGemfileFinder.new
+      else
+        DirectGemfileFinder.new(
+          skip_ignored: !options[:dont_skip],
+          only_current: options[:current]
+        )
+      end
+
       @ignored = options[:ignored_gems] || []
-      @skip = !options[:dont_skip]
-      @current = options[:current]
-      @roots = options[:follow_roots]
     end
 
     def scan
@@ -46,37 +52,12 @@ module HolePicker
       @database.vulnerabilities.select { |v| v.gem_vulnerable?(gem) }
     end
 
-    def find_gemfiles_in_path(path)
-      skips = SKIPPED_DIRECTORIES.join(" -or ")
-      gemfiles = @current ? "-path '*/current/Gemfile.lock'" : "-name 'Gemfile.lock'"
-
-      command = if @skip
-        "find -L #{path} \\( #{skips} \\) -prune -or #{gemfiles} -print"
-      else
-        "find -L #{path} #{gemfiles}"
-      end
-
-      run_and_read_lines(command)
-    end
-
-    def find_gemfiles_in_configs(path)
-      configs = run_and_read_lines("find -L #{path} -type f -or -type l")
-      configs = select_existing(configs)
-
-      directories = configs.map { |f| File.read(f).scan(ROOT_LINE_PATTERN) }
-      gemfiles = directories.flatten.map { |dir| "#{dir}/Gemfile.lock" }
-
-      select_existing(gemfiles)
-    end
-
     def read_gemfile(path)
       File.readlines(path).select { |l| l =~ GEMFILE_GEM_PATTERN }.map { |l| Gem.new(l) }
     end
 
     def scan_path(path)
-      path = File.expand_path(path)
-      gemfiles = @roots ? find_gemfiles_in_configs(path) : find_gemfiles_in_path(path)
-      gemfiles.each { |f| scan_gemfile(f) }
+      @finder.find_gemfiles(path).each { |f| scan_gemfile(f) }
     end
 
     def scan_gemfile(path)
@@ -126,14 +107,6 @@ module HolePicker
           puts "[#{v.tag}] #{v.day}: #{v.url}"
         end
       end
-    end
-
-    def select_existing(files)
-      files.select { |f| File.exist?(f) }
-    end
-
-    def run_and_read_lines(command)
-      %x(#{command}).lines.map(&:strip)
     end
   end
 end

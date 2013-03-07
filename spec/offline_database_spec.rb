@@ -12,18 +12,7 @@ describe HolePicker::OfflineDatabase do
     let(:json) {{ 'vulnerabilities' => vulnerabilities, 'min_version' => version }}
     let(:path) { File.expand_path('../../lib/holepicker/data/data.json', __FILE__) }
 
-    def create_parent_directory(path)
-      dir = File.dirname(path)
-      return if dir == '/'
-
-      create_parent_directory(dir)
-      Dir.mkdir(dir)
-    end
-
-    before do
-      create_parent_directory(path)
-      File.open(path, "w") { |f| f.write(json.to_json) }
-    end
+    before { create_file(path, json.to_json) }
 
     it "should load the database from the default json file" do
       db = HolePicker::OfflineDatabase.load
