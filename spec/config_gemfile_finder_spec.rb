@@ -34,9 +34,9 @@ describe HolePicker::ConfigGemfileFinder do
 
       it "should collect returned gemfiles on a single list" do
         HolePicker::FileFinder.stubs(:find_files).returns(paths)
-        HolePicker::ConfigReader.any_instance.stubs(:find_gemfiles)
-          .returns(['/var/www/aaa', '/var/www/bbb'])
-          .returns(['/var/www/ccc'])
+        HolePicker::ConfigReader.any_instance.stubs(:find_gemfiles).
+          returns(['/var/www/aaa', '/var/www/bbb']).
+          returns(['/var/www/ccc'])
 
         subject.find_gemfiles('/etc/').should == ['/var/www/aaa', '/var/www/bbb', '/var/www/ccc']
       end
