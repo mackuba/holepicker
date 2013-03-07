@@ -56,7 +56,7 @@ To automatically check for vulnerabilities before deployment, you can add the Ho
 1. Add `gem 'holepicker'` to your `Gemfile` (preferably with `:require => false`)
 2. Add `require 'holepicker/capistrano'` to your `config/deploy.rb`
 
-This will introduce a `cap holepicker` task which will be executed after the `deploy:update_code` step.
+This will introduce a `cap holepicker` task which will be executed before the deploy.
 
 ## Results
 

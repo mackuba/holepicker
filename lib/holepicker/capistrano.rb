@@ -4,7 +4,7 @@ Capistrano::Configuration.instance.load do
   set(:holepicker_offline, false) unless exists?(:holepicker_offline)
   set(:holepicker_ignored_gems, []) unless exists?(:holepicker_ignored_gems)
 
-  after "deploy:update_code", "holepicker"
+  before "deploy:update_code", "holepicker"
 
   namespace :holepicker do
     desc "Look for vulnerabilities in your Gemfile"
