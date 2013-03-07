@@ -22,8 +22,8 @@ module HolePicker
         ConfigGemfileFinder.new
       else
         DirectGemfileFinder.new(
-          skip_ignored: !options[:dont_skip],
-          only_current: options[:current]
+          :skip_ignored => !options[:dont_skip],
+          :only_current => options[:current]
         )
       end
 
