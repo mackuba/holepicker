@@ -17,7 +17,7 @@ Capistrano::Configuration.instance.load do
       gemfile_lock = "#{ENV['BUNDLE_GEMFILE']}.lock"
       success = HolePicker::Scanner.new(gemfile_lock, options).scan
       unless success
-        raise Capistrano::CommandError.new("HOLEPICKER found vulnerabilities!")
+        raise Capistrano::CommandError.new("HolePicker found vulnerabilities!")
       end
     end
   end
