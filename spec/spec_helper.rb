@@ -1,4 +1,5 @@
 require 'pp'
+require 'coveralls'
 require 'fakefs/spec_helpers'
 require 'support/spec_helpers'
 require 'webmock/rspec'
@@ -9,3 +10,5 @@ RSpec.configure do |config|
   config.include FakeFS::SpecHelpers
   config.include HolePicker::SpecHelpers
 end
+
+Coveralls.wear!
