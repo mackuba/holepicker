@@ -39,6 +39,13 @@
     },
     {
       "gems": {
+        "multi_xml": ["0.5.2"]
+      },
+      "url": "https://twitter.com/sferik/status/289640482420695040",
+      "date": "2013-01-11T07:50Z"
+    },
+    {
+      "gems": {
         "rails": ["3.2.11", "3.1.10", "3.0.19", "2.3.15"]
       },
       "url": "http://weblog.rubyonrails.org/2013/1/8/Rails-3-2-11-3-1-10-3-0-19-and-2-3-15-have-been-released/",
