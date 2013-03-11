@@ -39,6 +39,16 @@
     },
     {
       "gems": {
+        "httparty": ["0.10.0"],
+        "extlib": ["0.9.16"],
+        "crack": ["0.3.2"],
+        "nori": ["2.0.2", "1.1.4", "1.0.3"]
+      },
+      "url": "https://support.cloud.engineyard.com/entries/22915701-January-14-2013-Security-vulnerabilities-httparty-extlib-crack-nori-Update-these-gems-immediately",
+      "date": "2013-01-15T13:10Z"
+    },
+    {
+      "gems": {
         "multi_xml": ["0.5.2"]
       },
       "url": "https://twitter.com/sferik/status/289640482420695040",
