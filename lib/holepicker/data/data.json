@@ -3,6 +3,13 @@
   "vulnerabilities": [
     {
       "gems": {
+        "rails": ["3.2.13", "3.1.12", "2.3.18"]
+      },
+      "url": "http://weblog.rubyonrails.org/2013/3/18/SEC-ANN-Rails-3-2-13-3-1-12-and-2-3-18-have-been-released/",
+      "date": "2013-03-18T17:21Z"
+    },
+    {
+      "gems": {
         "rails": ["3.2.12", "3.1.11", "2.3.17"]
       },
       "url": "http://weblog.rubyonrails.org/2013/2/11/SEC-ANN-Rails-3-2-12-3-1-11-and-2-3-17-have-been-released/",
