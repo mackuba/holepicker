@@ -106,6 +106,14 @@ module HolePicker
         @found_vulnerabilities.sort_by(&:id).each do |v|
           puts "[#{v.tag}] #{v.day}: #{v.url}"
         end
+
+        if @found_vulnerabilities.any?(&:note)
+          puts
+
+          @found_vulnerabilities.select(&:note).each do |v|
+            puts "[#{v.tag}] #{v.note}"
+          end
+        end
       end
     end
   end

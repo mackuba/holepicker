@@ -6,7 +6,8 @@
         "rails": ["3.2.13", "3.1.12", "2.3.18"]
       },
       "url": "http://weblog.rubyonrails.org/2013/3/18/SEC-ANN-Rails-3-2-13-3-1-12-and-2-3-18-have-been-released/",
-      "date": "2013-03-18T17:21Z"
+      "date": "2013-03-18T17:21Z",
+      "note": "Warning: there are several issues with Rails 3.2.13, affecting view performance and other things; see http://blog.bugsnag.com/2013/03/20/rails-3-2-13-performance-regressions-major-bugs/ for more info."
     },
     {
       "gems": {
