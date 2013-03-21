@@ -1,3 +1,7 @@
+#### Version 0.2.1 (21.03.2013)
+
+* added possibility to display additional notes about specific vulnerabilities (see data.json)
+
 #### Version 0.2.0 (7.03.2013)
 
 * Capistrano recipe (@manuelvanrijn)
