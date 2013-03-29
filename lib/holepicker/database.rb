@@ -1,3 +1,4 @@
+require 'holepicker/version'
 require 'holepicker/vulnerability'
 require 'json'
 require 'rubygems'
