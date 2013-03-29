@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    holepicker (0.2.1)
+    holepicker (0.2.2)
       json (>= 1.7.7)
       rainbow (>= 1.1.4)
 
