@@ -23,4 +23,9 @@ module HolePicker::SpecHelpers
 
     previous
   end
+
+  def ignoring_errors
+    yield
+  rescue Exception => e
+  end
 end
