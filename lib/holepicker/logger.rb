@@ -15,8 +15,8 @@ module HolePicker
       progname == 'print' ? message.to_s : "#{message}\n"
     end
 
-    def print(message)
-      add(INFO, message, 'print')
+    def print(message, level = INFO)
+      add(level, message, 'print')
     end
 
     def fail(message)

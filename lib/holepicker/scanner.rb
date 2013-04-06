@@ -63,8 +63,6 @@ module HolePicker
     end
 
     def scan_gemfile(path)
-      logger.print "#{path}: "
-
       gems = read_gemfile(path)
       gems.delete_if { |g| @ignored.include?(g.name) }
 
@@ -74,8 +72,10 @@ module HolePicker
       count = vulnerable_gems.length
 
       if count == 0
+        logger.print "#{path}: "
         logger.success "✔"
       else
+        logger.print "#{path}: ", Logger::ERROR
         logger.fail "#{count} vulnerable #{Utils.pluralize(count, 'gem')} found!"
 
         vulnerable_gems.each do |gem, vulnerabilities|

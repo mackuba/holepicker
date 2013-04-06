@@ -29,6 +29,15 @@ module HolePicker
           io.string.should be_empty
         end
       end
+
+      context "if level is passed as the second argument" do
+        it "should use that log level" do
+          subject.level = Logger::ERROR
+          subject.print 'xxx', Logger::ERROR
+
+          io.string.should == 'xxx'
+        end
+      end
     end
 
     describe "#success" do
