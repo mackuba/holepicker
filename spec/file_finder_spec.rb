@@ -1,18 +1,18 @@
 require 'holepicker/file_finder'
 require 'spec_helper'
 
-describe HolePicker::FileFinder do
-  subject { HolePicker::FileFinder }
+module HolePicker
+  describe FileFinder do
+    it "should call the 'find' command with given arguments" do
+      FileFinder.expects(:`).with("find -L /usr -type f -and -name 'git*'").returns('')
 
-  it "should call the 'find' command with given arguments" do
-    subject.expects(:`).with("find -L /usr -type f -and -name 'git*'").returns('')
+      FileFinder.find_files('/usr', "-type f -and -name 'git*'")
+    end
 
-    subject.find_files('/usr', "-type f -and -name 'git*'")
-  end
+    it "should divide the output into lines and strip them" do
+      FileFinder.stubs(:`).returns("one\ntwo\nthree\n")
 
-  it "should divide the output into lines and strip them" do
-    subject.stubs(:`).returns("one\ntwo\nthree\n")
-
-    subject.find_files('/', '-name foo').should == ['one', 'two', 'three']
+      FileFinder.find_files('/', '-name foo').should == ['one', 'two', 'three']
+    end
   end
 end

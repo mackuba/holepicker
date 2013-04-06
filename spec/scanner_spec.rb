@@ -1,11 +1,13 @@
 require 'holepicker/scanner'
 require 'spec_helper'
 
-describe HolePicker::Scanner do
-  it "should not raise error" do
-    HolePicker::OnlineDatabase.stubs(:load).returns('{}')
-    HolePicker::FileFinder.stubs(:find_files).returns([])
+module HolePicker
+  describe Scanner do
+    it "should not raise error" do
+      OnlineDatabase.stubs(:load).returns('{}')
+      FileFinder.stubs(:find_files).returns([])
 
-    HolePicker::Scanner.new('.').scan
+      Scanner.new('.').scan
+    end
   end
 end
