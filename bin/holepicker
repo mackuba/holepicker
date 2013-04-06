@@ -35,6 +35,10 @@ OptionParser.new do |opts|
     options[:offline] = true
   end
 
+  opts.on("-s", "--silent", "Silent mode - disable info-level logging, only print errors") do
+    HolePicker.logger.level = Logger::ERROR
+  end
+
   opts.on("-h", "--help", "Display this help") do
     HolePicker.logger.info(opts)
     exit
