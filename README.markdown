@@ -64,7 +64,9 @@ This is more or less what you will get if you run HolePicker in a directory with
 
 If you want to check your gems when your app is started, add HolePicker to your Gemfile and then call `HolePicker::Scanner#scan` in a file that's loaded at app startup (e.g. in Rails projects you can add an initializer in `config/initializers`):
 
-    HolePicker::Scanner.new('Gemfile.lock').scan or abort
+```rb
+HolePicker::Scanner.new('Gemfile.lock').scan or abort
+```
 
 You may want to pass `:offline` or `:ignored_gems` options or change logger settings too - see [`bin/holepicker` source](https://github.com/jsuder/holepicker/blob/master/bin/holepicker) for more info.
 
