@@ -101,7 +101,7 @@ Ignore the gems passed in the parameter.
 
 `--no-color`
 
-Disables output coloring (by default green is used for good gemfiles and red is used for bad gemfiles and errors).
+Disable output coloring (by default green is used for good gemfiles and red is used for bad gemfiles and errors).
 
 `-o`, `--offline`
 
@@ -109,7 +109,7 @@ Use an offline copy of the data file - useful if you really need to run the tool
 
 `-s`, `--silent`
 
-Silent mode - disables info-level messages ("Looking for gemfiles...") and only print errors and found vulnerabilities.
+Silent mode - disable info-level messages ("Looking for gemfiles...") and only print errors and found vulnerabilities.
 
 
 ## Similar projects
