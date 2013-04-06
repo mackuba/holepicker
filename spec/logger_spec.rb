@@ -8,6 +8,7 @@ describe HolePicker::Logger do
   subject { HolePicker::Logger.new(io) }
 
   context "after initialization" do
+    its(:color) { should be_true }
     its(:level) { should == Logger::INFO }
   end
 
@@ -45,6 +46,16 @@ describe HolePicker::Logger do
         io.string.should be_empty
       end
     end
+
+    context "if color is disabled" do
+      before { subject.color = false }
+
+      it "should log the message without color" do
+        subject.success 'aaa'
+
+        io.string.should == "aaa\n"
+      end
+    end
   end
 
   describe "#fail" do
@@ -61,6 +72,16 @@ describe HolePicker::Logger do
         subject.fail 'rrr'
 
         io.string.should == "rrr".color(:red) + "\n"
+      end
+    end
+
+    context "if color is disabled" do
+      before { subject.color = false }
+
+      it "should log the message without color" do
+        subject.fail 'rrr'
+
+        io.string.should == "rrr\n"
       end
     end
   end

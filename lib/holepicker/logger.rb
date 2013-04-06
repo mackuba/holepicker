@@ -3,9 +3,12 @@ require 'rainbow'
 
 module HolePicker
   class Logger < ::Logger
+    attr_accessor :color
+
     def initialize(io)
       super
       self.level = INFO
+      self.color = true
     end
 
     def format_message(level, datetime, progname, message)
@@ -17,11 +20,11 @@ module HolePicker
     end
 
     def fail(message)
-      error(message.color(:red))
+      error(color ? message.color(:red) : message)
     end
 
     def success(message)
-      info(message.color(:green))
+      info(color ? message.color(:green) : message)
     end
   end
 

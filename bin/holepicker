@@ -27,6 +27,10 @@ OptionParser.new do |opts|
     options[:ignored_gems] = names
   end
 
+  opts.on("--no-color", "Disable output coloring") do
+    HolePicker.logger.color = false
+  end
+
   opts.on("-o", "--offline", "Use an offline copy of the data.json file") do
     options[:offline] = true
   end
