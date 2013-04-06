@@ -11,6 +11,20 @@
     },
     {
       "gems": {
+        "ftpd": ["0.2.2"]
+      },
+      "url": "http://seclists.org/bugtraq/2013/Mar/10",
+      "date": "2013-03-03T05:45Z"
+    },
+    {
+      "gems": {
+        "dragonfly": ["0.9.14"]
+      },
+      "url": "https://groups.google.com/d/msg/dragonfly-users/3c3WIU3VQTo/ccasejdDjcAJ",
+      "date": "2013-02-19T08:39Z"
+    },
+    {
+      "gems": {
         "rails": ["3.2.12", "3.1.11", "2.3.17"]
       },
       "url": "http://weblog.rubyonrails.org/2013/2/11/SEC-ANN-Rails-3-2-12-3-1-11-and-2-3-17-have-been-released/",
@@ -33,6 +47,13 @@
     },
     {
       "gems": {
+        "rdoc": ["4.0.0.rc.2", "3.12.1", "3.9.5"]
+      },
+      "url": "http://rdoc.rubyforge.org/CVE-2013-0256_rdoc.html",
+      "date": "2013-02-07T05:49Z"
+    },
+    {
+      "gems": {
         "rails": ["3.0.20", "2.3.16"]
       },
       "url": "http://weblog.rubyonrails.org/2013/1/28/Rails-3-0-20-and-2-3-16-have-been-released/",
@@ -50,7 +71,7 @@
         "httparty": ["0.10.0"],
         "extlib": ["0.9.16"],
         "crack": ["0.3.2"],
-        "nori": ["2.0.2", "1.1.4", "1.0.3"]
+        "nori": ["2.0.3", "1.1.4", "1.0.3"]
       },
       "url": "https://support.cloud.engineyard.com/entries/22915701-January-14-2013-Security-vulnerabilities-httparty-extlib-crack-nori-Update-these-gems-immediately",
       "date": "2013-01-15T13:10Z"
