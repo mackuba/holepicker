@@ -53,6 +53,22 @@ You might have a lot of random apps deployed in the `/var/www` directory, but on
     holepicker -f /etc/nginx/sites-enabled
 
 
+## Results
+
+This is more or less what you will get if you run HolePicker in a directory with some old Rails projects:
+
+![screenshot](http://f.cl.ly/items/1l3C2c2s0r1k3v033B34/Screen%20Shot%202013-02-16%20at%2001.43.39.png)
+
+
+## Running on app startup
+
+If you want to check your gems when your app is started, add HolePicker to your Gemfile and then call `HolePicker::Scanner#scan` in a file that's loaded at app startup (e.g. in Rails projects you can add an initializer in `config/initializers`):
+
+    HolePicker::Scanner.new('Gemfile.lock').scan or abort
+
+You may want to pass `:offline` or `:ignored_gems` options or change logger settings too - see [`bin/holepicker` source](https://github.com/jsuder/holepicker/blob/master/bin/holepicker) for more info.
+
+
 ## Integration with capistrano
 
 To automatically check for vulnerabilities before deployment, you can add the HolePicker Capistrano recipe:
@@ -61,12 +77,6 @@ To automatically check for vulnerabilities before deployment, you can add the Ho
 2. Add `require 'holepicker/capistrano'` to your `config/deploy.rb`
 
 This will introduce a `cap holepicker` task which will be executed before the deploy.
-
-## Results
-
-This is more or less what you will get if you run HolePicker in a directory with some old Rails projects:
-
-![screenshot](http://f.cl.ly/items/1l3C2c2s0r1k3v033B34/Screen%20Shot%202013-02-16%20at%2001.43.39.png)
 
 
 ## Full option list
@@ -87,16 +97,24 @@ Look for `root`/`DocumentRoot` directives in config files at given locations ins
 
 Ignore the gems passed in the parameter.
 
+`--no-color`
+
+Disables output coloring (by default green is used for good gemfiles and red is used for bad gemfiles and errors).
+
 `-o`, `--offline`
 
 Use an offline copy of the data file - useful if you really need to run the tool, but the network or GitHub is down.
+
+`-s`, `--silent`
+
+Silent mode - disables info-level messages ("Looking for gemfiles...") and only print errors and found vulnerabilities.
 
 
 ## Similar projects
 
 There are a few other projects with a similar purpose, take a look if HolePicker isn't exactly what you need:
 
-* [bundler-audit](https://github.com/postmodern/bundler-audit) - scans the current project when the app is loaded
+* [bundler-audit](https://github.com/postmodern/bundler-audit) - lets you scan the project in current directory
 * [bundler-organization_audit](https://github.com/grosser/bundler-organization_audit) - scans all your projects on GitHub
 * [ruby-advisory-db](https://github.com/rubysec/ruby-advisory-db) - a shared database of vulnerabilities - I'll try to integrate holepicker with it later
 * [gemcanary](https://gemcanary.com/) - some kind of web service, not released yet (as of 23.02)
