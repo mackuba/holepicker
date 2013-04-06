@@ -2,11 +2,6 @@ require 'holepicker/online_database'
 require 'spec_helper'
 
 describe HolePicker::OnlineDatabase do
-  before do
-    HolePicker::OnlineDatabase.stubs(:puts)
-    HolePicker::OnlineDatabase.any_instance.stubs(:puts)
-  end
-
   describe ".load" do
     let(:version) { '0.1' }
     let(:vulnerabilities) {[

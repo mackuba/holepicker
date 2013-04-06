@@ -3,14 +3,16 @@
 require 'holepicker/gem'
 require 'holepicker/config_gemfile_finder'
 require 'holepicker/direct_gemfile_finder'
+require 'holepicker/logger'
 require 'holepicker/offline_database'
 require 'holepicker/online_database'
 require 'holepicker/utils'
-require 'rainbow'
 require 'set'
 
 module HolePicker
   class Scanner
+    include HasLogger
+
     GEMFILE_GEM_PATTERN = %r(^ {4}[^ ])
 
     def initialize(paths, options = {})
@@ -31,7 +33,7 @@ module HolePicker
     end
 
     def scan
-      puts "Looking for gemfiles..."
+      logger.info "Looking for gemfiles..."
 
       @found_vulnerabilities = Set.new
       @scanned_gemfiles = 0
@@ -61,7 +63,7 @@ module HolePicker
     end
 
     def scan_gemfile(path)
-      print "#{path}: "
+      logger.print "#{path}: "
 
       gems = read_gemfile(path)
       gems.delete_if { |g| @ignored.include?(g.name) }
@@ -72,12 +74,12 @@ module HolePicker
       count = vulnerable_gems.length
 
       if count == 0
-        puts "✔".color(:green)
+        logger.success "✔"
       else
-        puts "#{count} vulnerable #{Utils.pluralize(count, 'gem')} found!".color(:red)
+        logger.fail "#{count} vulnerable #{Utils.pluralize(count, 'gem')} found!"
 
         vulnerable_gems.each do |gem, vulnerabilities|
-          puts "- #{gem} [#{vulnerabilities.map(&:tag).join(',')}]"
+          logger.error "- #{gem} [#{vulnerabilities.map(&:tag).join(',')}]"
 
           @found_vulnerabilities.merge(vulnerabilities)
           @matched_gems += 1
@@ -85,7 +87,7 @@ module HolePicker
 
         @matched_gemfiles += 1
 
-        puts
+        logger.error
       end
 
       @scanned_gemfiles += 1
@@ -93,25 +95,24 @@ module HolePicker
 
     def print_report
       if @scanned_gemfiles == 0
-        puts "No gemfiles found - are you sure the paths are correct?".color(:red)
+        logger.warn "No gemfiles found - are you sure the paths are correct?"
       elsif @matched_gemfiles == 0
-        puts "No vulnerabilities found."
+        logger.info "No vulnerabilities found."
       else
         gems = Utils.pluralize(@matched_gems, 'gem')
         gemfiles = Utils.pluralize(@matched_gemfiles, 'gemfile')
 
-        warning = "#{@matched_gems} vulnerable #{gems} found in #{@matched_gemfiles} #{gemfiles}!\n"
-        puts warning.color(:red)
+        logger.fail "#{@matched_gems} vulnerable #{gems} found in #{@matched_gemfiles} #{gemfiles}!\n"
 
         @found_vulnerabilities.sort_by(&:id).each do |v|
-          puts "[#{v.tag}] #{v.day}: #{v.url}"
+          logger.error "[#{v.tag}] #{v.day}: #{v.url}"
         end
 
         if @found_vulnerabilities.any?(&:note)
-          puts
+          logger.error
 
           @found_vulnerabilities.select(&:note).each do |v|
-            puts "[#{v.tag}] #{v.note}"
+            logger.error "[#{v.tag}] #{v.note}"
           end
         end
       end

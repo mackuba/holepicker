@@ -1,14 +1,17 @@
 require 'holepicker/database'
+require 'holepicker/logger'
 require 'holepicker/utils'
 require 'net/http'
 require 'net/https'
 
 module HolePicker
   class OnlineDatabase < Database
-    URL='https://raw.github.com/jsuder/holepicker/master/lib/holepicker/data/data.json'
+    include HasLogger
+
+    URL = 'https://raw.github.com/jsuder/holepicker/master/lib/holepicker/data/data.json'
 
     def self.load
-      puts "Fetching list of vulnerabilities..."
+      logger.info "Fetching list of vulnerabilities..."
 
       load_from_json_file(http_get(URL)).tap do |db|
         db.check_compatibility
@@ -17,7 +20,7 @@ module HolePicker
     rescue SystemExit
       raise
     rescue Exception => e
-      puts "Can't download latest data file: #{e}"
+      logger.fail "Can't download latest data file: #{e}"
       exit 1
     end
 
@@ -32,7 +35,7 @@ module HolePicker
 
     def check_compatibility
       unless compatible?
-        puts "You need to upgrade holepicker to version #{@min_version} or later."
+        logger.fail "You need to upgrade holepicker to version #{@min_version} or later."
         exit 1
       end
     end
@@ -42,14 +45,14 @@ module HolePicker
       count = new_vulnerabilities.length
 
       if count > 0
-        puts "#{count} new #{Utils.pluralize(count, 'vulnerability')} found in the last " +
+        logger.info "#{count} new #{Utils.pluralize(count, 'vulnerability')} found in the last " +
           "#{Vulnerability::NEW_VULNERABILITY_DAYS} days:"
 
         new_vulnerabilities.each do |v|
-          puts "#{v.day} (#{v.gem_names.join(', ')}): #{v.url}"
+          logger.info "#{v.day} (#{v.gem_names.join(', ')}): #{v.url}"
         end
 
-        puts
+        logger.info
       end
     end
   end

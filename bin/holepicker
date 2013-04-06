@@ -32,12 +32,12 @@ OptionParser.new do |opts|
   end
 
   opts.on("-h", "--help", "Display this help") do
-    puts opts
+    HolePicker.logger.info(opts)
     exit
   end
 
   opts.on("-v", "--version", "Print gem version") do
-    puts HolePicker::VERSION
+    HolePicker.logger.info(HolePicker::VERSION)
     exit
   end
 
@@ -45,7 +45,8 @@ OptionParser.new do |opts|
 end
 
 if ARGV.empty?
-  abort "Please choose at least one directory to scan for gemfiles."
+  HolePicker.logger.error "Please choose at least one directory to scan for gemfiles."
+  exit 1
 end
 
 success = HolePicker::Scanner.new(ARGV, options).scan
