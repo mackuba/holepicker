@@ -7,10 +7,12 @@
 #### Version 0.2.2 (29.03.2013)
 
 * fixed Capistrano recipe
+* updated Devise vulnerability info
 
 #### Version 0.2.1 (21.03.2013)
 
 * added possibility to display additional notes about specific vulnerabilities (see data.json)
+* added multi_xml, httparty, extlib, crack and nori vulnerabilities
 
 #### Version 0.2.0 (7.03.2013)
 
