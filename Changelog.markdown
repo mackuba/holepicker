@@ -1,3 +1,9 @@
+#### Version 0.3.0 (13.04.2013)
+
+* silent option
+* no-color option
+* added vulnerabilities for ftpd, dragonfly, rdoc
+
 #### Version 0.2.2 (29.03.2013)
 
 * fixed Capistrano recipe
