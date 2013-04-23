@@ -39,6 +39,10 @@ OptionParser.new do |opts|
     HolePicker.logger.level = Logger::ERROR
   end
 
+  opts.on("--stdin", "Read a gemfile directly from STDIN instead of paths given in arguments") do
+    options[:stdin] = true
+  end
+
   opts.on("-h", "--help", "Display this help") do
     HolePicker.logger.info(opts)
     exit
@@ -52,7 +56,7 @@ OptionParser.new do |opts|
   opts.parse!
 end
 
-if ARGV.empty?
+if ARGV.empty? && !options[:stdin]
   HolePicker.logger.error "Please choose at least one directory to scan for gemfiles."
   exit 1
 end

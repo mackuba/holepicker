@@ -17,6 +17,7 @@ module HolePicker
 
     def initialize(paths, options = {})
       @paths = paths.is_a?(Array) ? paths : [paths]
+      @stdin = options[:stdin]
 
       @database = options[:offline] ? OfflineDatabase.load : OnlineDatabase.load
 
@@ -33,14 +34,18 @@ module HolePicker
     end
 
     def scan
-      logger.info "Looking for gemfiles..."
+      logger.info "Looking for gemfiles..." unless @stdin
 
       @found_vulnerabilities = Set.new
       @scanned_gemfiles = 0
       @matched_gemfiles = 0
       @matched_gems = 0
 
-      @paths.each { |p| scan_path(p) }
+      if @stdin
+        scan_gemfile(STDIN.read, nil)
+      else
+        @paths.each { |p| scan_path(p) }
+      end
 
       print_report
 
@@ -54,28 +59,29 @@ module HolePicker
       @database.vulnerabilities.select { |v| v.gem_vulnerable?(gem) }
     end
 
-    def read_gemfile(path)
-      File.readlines(path).select { |l| l =~ GEMFILE_GEM_PATTERN }.map { |l| Gem.new(l) }
+    def parse_gemfile(data)
+      data.lines.select { |l| l =~ GEMFILE_GEM_PATTERN }.map { |l| Gem.new(l) }
     end
 
     def scan_path(path)
-      @finder.find_gemfiles(path).each { |f| scan_gemfile(f) }
+      @finder.find_gemfiles(path).each { |f| scan_gemfile(File.read(f), f) }
     end
 
-    def scan_gemfile(path)
-      gems = read_gemfile(path)
+    def scan_gemfile(data, path)
+      gems = parse_gemfile(data)
       gems.delete_if { |g| @ignored.include?(g.name) }
 
       vulnerable_gems = gems.map { |g| [g, vulnerabilities_for_gem(g)] }
       vulnerable_gems.delete_if { |g, v| v.empty? }
 
       count = vulnerable_gems.length
+      label = path || "Scanning gemfile"
 
       if count == 0
-        logger.print "#{path}: "
+        logger.print "#{label}: "
         logger.success "✔"
       else
-        logger.print "#{path}: ", Logger::ERROR
+        logger.print "#{label}: ", Logger::ERROR
         logger.fail "#{count} vulnerable #{Utils.pluralize(count, 'gem')} found!"
 
         vulnerable_gems.each do |gem, vulnerabilities|
