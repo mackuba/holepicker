@@ -34,8 +34,6 @@ module HolePicker
     end
 
     def scan
-      logger.info "Looking for gemfiles..." unless @stdin
-
       @found_vulnerabilities = Set.new
       @scanned_gemfiles = 0
       @matched_gemfiles = 0
@@ -44,6 +42,8 @@ module HolePicker
       if @stdin
         scan_gemfile(STDIN.read, nil)
       else
+        logger.info "Looking for gemfiles..."
+
         @paths.each { |p| scan_path(p) }
       end
 
