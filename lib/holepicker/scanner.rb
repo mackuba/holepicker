@@ -1,8 +1,8 @@
 # encoding: utf-8
 
-require 'holepicker/gem'
 require 'holepicker/config_gemfile_finder'
 require 'holepicker/direct_gemfile_finder'
+require 'holepicker/gemfile_parser'
 require 'holepicker/logger'
 require 'holepicker/offline_database'
 require 'holepicker/online_database'
@@ -12,8 +12,6 @@ require 'set'
 module HolePicker
   class Scanner
     include HasLogger
-
-    GEMFILE_GEM_PATTERN = %r(^ {4}[^ ])
 
     def initialize(paths, options = {})
       @paths = paths.is_a?(Array) ? paths : [paths]
@@ -30,7 +28,7 @@ module HolePicker
         )
       end
 
-      @ignored = options[:ignored_gems] || []
+      @parser = GemfileParser.new(options[:ignored_gems])
     end
 
     def scan
@@ -59,17 +57,12 @@ module HolePicker
       @database.vulnerabilities.select { |v| v.gem_vulnerable?(gem) }
     end
 
-    def parse_gemfile(data)
-      data.lines.select { |l| l =~ GEMFILE_GEM_PATTERN }.map { |l| Gem.new(l) }
-    end
-
     def scan_path(path)
       @finder.find_gemfiles(path).each { |f| scan_gemfile(File.read(f), f) }
     end
 
     def scan_gemfile(data, path)
-      gems = parse_gemfile(data)
-      gems.delete_if { |g| @ignored.include?(g.name) }
+      gems = @parser.parse_gemfile(data)
 
       vulnerable_gems = gems.map { |g| [g, vulnerabilities_for_gem(g)] }
       vulnerable_gems.delete_if { |g, v| v.empty? }
