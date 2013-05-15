@@ -6,7 +6,7 @@ HolePicker is a Ruby gem for quickly checking all your `Gemfile.lock` files for 
 &nbsp;
 [![Build Status](https://travis-ci.org/jsuder/holepicker.png?branch=master)](https://travis-ci.org/jsuder/holepicker)
 &nbsp;
-[![Code Climate](https://codeclimate.com/github/jsuder/rails-retweeter-bot.png)](https://codeclimate.com/github/jsuder/rails-retweeter-bot)
+[![Code Climate](https://codeclimate.com/github/jsuder/holepicker.png)](https://codeclimate.com/github/jsuder/holepicker)
 
 ## The story
 
