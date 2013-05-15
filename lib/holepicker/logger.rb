@@ -30,11 +30,14 @@ module HolePicker
 
   module HasLogger
     def logger
-      HolePicker.logger
+      @logger ||= HolePicker.logger
     end
 
     def self.included(c)
-      c.extend(self)
+      c.class_eval do
+        attr_writer :logger
+        extend HasLogger
+      end
     end
   end
 

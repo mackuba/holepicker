@@ -6,8 +6,8 @@ require 'holepicker/gemfile_parser'
 require 'holepicker/logger'
 require 'holepicker/offline_database'
 require 'holepicker/online_database'
+require 'holepicker/scan_reporter'
 require 'holepicker/utils'
-require 'set'
 
 module HolePicker
   class Scanner
@@ -32,10 +32,7 @@ module HolePicker
     end
 
     def scan
-      @found_vulnerabilities = Set.new
-      @scanned_gemfiles = 0
-      @matched_gemfiles = 0
-      @matched_gems = 0
+      @reporter = ScanReporter.new
 
       if @stdin
         scan_gemfile(STDIN.read, nil)
@@ -45,9 +42,9 @@ module HolePicker
         @paths.each { |p| scan_path(p) }
       end
 
-      print_report
+      @reporter.print_report
 
-      @matched_gems == 0
+      @reporter.success?
     end
 
 
@@ -73,6 +70,8 @@ module HolePicker
       if count == 0
         logger.print "#{label}: "
         logger.success "✔"
+
+        @reporter.add_safe_gemfile(path)
       else
         logger.print "#{label}: ", Logger::ERROR
         logger.fail "#{count} vulnerable #{Utils.pluralize(count, 'gem')} found!"
@@ -80,40 +79,12 @@ module HolePicker
         vulnerable_gems.each do |gem, vulnerabilities|
           logger.error "- #{gem} [#{vulnerabilities.map(&:tag).join(',')}]"
 
-          @found_vulnerabilities.merge(vulnerabilities)
-          @matched_gems += 1
+          @reporter.add_vulnerable_gem(gem, vulnerabilities)
         end
 
-        @matched_gemfiles += 1
+        @reporter.add_vulnerable_gemfile(path)
 
         logger.error
-      end
-
-      @scanned_gemfiles += 1
-    end
-
-    def print_report
-      if @scanned_gemfiles == 0
-        logger.warn "No gemfiles found - are you sure the paths are correct?"
-      elsif @matched_gemfiles == 0
-        logger.info "No vulnerabilities found."
-      else
-        gems = Utils.pluralize(@matched_gems, 'gem')
-        gemfiles = Utils.pluralize(@matched_gemfiles, 'gemfile')
-
-        logger.fail "#{@matched_gems} vulnerable #{gems} found in #{@matched_gemfiles} #{gemfiles}!\n"
-
-        @found_vulnerabilities.sort_by(&:id).each do |v|
-          logger.error "[#{v.tag}] #{v.day}: #{v.url}"
-        end
-
-        if @found_vulnerabilities.any?(&:note)
-          logger.error
-
-          @found_vulnerabilities.select(&:note).each do |v|
-            logger.error "[#{v.tag}] #{v.note}"
-          end
-        end
       end
     end
   end
