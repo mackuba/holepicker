@@ -6,8 +6,8 @@ module HolePicker
     describe ".load" do
       let(:version) { '0.1' }
       let(:vulnerabilities) {[
-        { 'url' => 'aaa', 'gems' => { 'gema' => ['1.2'] }, 'date' => '2013-01-01' },
-        { 'url' => 'bbb', 'gems' => { 'gemb' => ['2.3'] }, 'date' => '2013-01-01' }
+        make_vulnerability_json('url' => 'aaa', 'gems' => { 'gema' => ['1.2'] }),
+        make_vulnerability_json('url' => 'bbb', 'gems' => { 'gemb' => ['2.3'] })
       ]}
 
       let(:json) {{ 'vulnerabilities' => vulnerabilities, 'min_version' => version }}

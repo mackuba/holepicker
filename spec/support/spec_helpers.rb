@@ -1,3 +1,5 @@
+require 'holepicker/vulnerability'
+
 module HolePicker::SpecHelpers
   def create_parent_directory(path)
     dir = File.dirname(path)
@@ -27,5 +29,13 @@ module HolePicker::SpecHelpers
   def ignoring_errors
     yield
   rescue Exception => e
+  end
+
+  def make_vulnerability_json(args = {})
+    { 'url' => 'http://cve.org', 'gems' => [], 'date' => '2013-01-01' }.merge(args)
+  end
+
+  def make_vulnerability(args = {})
+    HolePicker::Vulnerability.new(make_vulnerability_json(args))
   end
 end

@@ -5,11 +5,7 @@ module HolePicker
   describe OfflineDatabase do
     describe ".load" do
       let(:version) { '1.2.4' }
-      let(:vulnerabilities) {[
-        { 'url' => 'aaa', 'gems' => [], 'date' => '2013-01-01' },
-        { 'url' => 'bbb', 'gems' => [], 'date' => '2013-01-01' }
-      ]}
-
+      let(:vulnerabilities) { [make_vulnerability_json, make_vulnerability_json] }
       let(:json) {{ 'vulnerabilities' => vulnerabilities, 'min_version' => version }}
       let(:path) { File.expand_path('../../lib/holepicker/data/data.json', __FILE__) }
 
