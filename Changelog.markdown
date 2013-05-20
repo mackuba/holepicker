@@ -1,3 +1,7 @@
+#### Version 0.3.1 (20.05.2013)
+
+* stdin option
+
 #### Version 0.3.0 (13.04.2013)
 
 * silent option
