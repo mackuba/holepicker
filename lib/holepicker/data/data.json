@@ -3,6 +3,13 @@
   "vulnerabilities": [
     {
       "gems": {
+        "devise": ["3.0.1", "2.2.5"]
+      },
+      "url": "http://blog.plataformatec.com.br/2013/08/csrf-token-fixation-attacks-in-devise/",
+      "date": "2013-08-02T18:33Z"
+    },
+    {
+      "gems": {
         "rails": ["3.2.13", "3.1.12", "2.3.18"]
       },
       "url": "http://weblog.rubyonrails.org/2013/3/18/SEC-ANN-Rails-3-2-13-3-1-12-and-2-3-18-have-been-released/",
