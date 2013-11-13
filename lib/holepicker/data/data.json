@@ -3,11 +3,10 @@
   "vulnerabilities": [
     {
       "gems": {
-        "rails": [ "3.2.14" ]
+        "rails": [ "3.2.15", "2.0" ]
       },
       "url": "http://weblog.rubyonrails.org/2013/10/16/Rails-3-2-15-has-been-released/",
-      "date": "2013-10-16T00:00Z",
-      "note": "This release also contains one security fix.  Users are encouraged to upgrade as soon as possible.  See https://groups.google.com/forum/#!topic/ruby-security-ann/yvlR1Vx44c8"
+      "date": "2013-10-16T00:00Z"
     },
     {
       "gems": {
