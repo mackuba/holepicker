@@ -35,14 +35,14 @@ module HolePicker
       end
 
       it "should add the vulnerabilities to the set" do
-        subject.vulnerabilities.to_a.should == vulnerabilities
+        subject.vulnerabilities.to_a.should =~ vulnerabilities
       end
 
       context "if a vulnerability was already in the set" do
         before { subject.add_vulnerable_gem('activerecord', [vulnerabilities[0]]) }
 
         it "should not add it again" do
-          subject.vulnerabilities.to_a.should == vulnerabilities
+          subject.vulnerabilities.to_a.should =~ vulnerabilities
         end
       end
     end
