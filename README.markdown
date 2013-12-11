@@ -128,4 +128,6 @@ Created by [Jakub Suder](http://psionides.eu), licensed under MIT License.
 
 Any feedback and help is welcome, if you have an idea how to improve this tool, let me know or send me an issue or a pull request.
 
+If you hear about a security update to a Ruby gem which I have missed, please send me a pull request with an update to the [json file](https://github.com/jsuder/holepicker/blob/master/lib/holepicker/data/data.json) (check out the documentation about the [file structure](https://github.com/jsuder/holepicker/wiki/JSON-structure)).
+
 And BTW, big thanks to all the smart people that find and fix all these issues - I hope you won't find much more, but please keep looking.
