@@ -3,6 +3,13 @@
   "vulnerabilities": [
     {
       "gems": {
+        "rails": ["4.1.0.beta2", "4.0.3", "3.2.17"]
+      },
+      "url": "http://weblog.rubyonrails.org/2014/2/18/Rails_3_2_17_4_0_3_and_4_1_0_beta2_have_been_released/",
+      "date": "2014-02-18T19:17Z"
+    },
+    {
+      "gems": {
         "rails": ["4.0.2", "3.2.16"]
       },
       "url": "http://weblog.rubyonrails.org/2013/12/3/Rails_3_2_16_and_4_0_2_have_been_released/",
