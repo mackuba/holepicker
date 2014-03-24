@@ -28,6 +28,8 @@ Of course the whole system still relies on me manually adding entries to the JSO
 
 ## Running the tool
 
+HolePicker should run on any fairly recent Ruby (1.9.x, 2.0) or JRuby.
+
 To install the tool, just run:
 
     gem install holepicker
