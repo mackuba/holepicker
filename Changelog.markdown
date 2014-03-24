@@ -1,3 +1,7 @@
+#### Version 0.3.2 (24.03.2014)
+
+* fixed a problem with the new version of rainbow gem
+
 #### Version 0.3.1 (20.05.2013)
 
 * stdin option
