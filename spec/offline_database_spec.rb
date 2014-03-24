@@ -13,10 +13,10 @@ module HolePicker
         before { create_file(path, json.to_json) }
 
         it "should load the database from the default json file" do
-          db = OfflineDatabase.load
+          expect { @db = OfflineDatabase.load }.not_to raise_error
 
-          db.should be_a(OfflineDatabase)
-          db.vulnerabilities.map(&:url).should == vulnerabilities.map { |v| v['url'] }.reverse
+          @db.should be_a(OfflineDatabase)
+          @db.vulnerabilities.map(&:url).should == vulnerabilities.map { |v| v['url'] }.reverse
         end
       end
 

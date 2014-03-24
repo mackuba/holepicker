@@ -48,7 +48,7 @@ module HolePicker
         before { OnlineDatabase.any_instance.stubs(:compatible? => true) }
 
         it "should not exit" do
-          expect { OnlineDatabase.load }.not_to raise_error(SystemExit)
+          expect { OnlineDatabase.load }.not_to raise_error
         end
 
         it "should not print any error message" do
@@ -62,7 +62,7 @@ module HolePicker
         before { OnlineDatabase.any_instance.stubs(:compatible? => false) }
 
         it "should exit" do
-          expect { OnlineDatabase.load }.to raise_error(SystemExit)
+          expect { OnlineDatabase.load }.to raise_error
         end
 
         it "should print an error message" do
@@ -76,7 +76,7 @@ module HolePicker
         before { stub_request(:get, OnlineDatabase::URL).to_timeout }
 
         it "should exit" do
-          expect { OnlineDatabase.load }.to raise_error(SystemExit)
+          expect { OnlineDatabase.load }.to raise_error
         end
 
         it "should print an error message" do
