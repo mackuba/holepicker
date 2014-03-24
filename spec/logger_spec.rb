@@ -44,7 +44,7 @@ module HolePicker
       it "should log a message in green" do
         subject.success 'aaa'
 
-        io.string.should == "aaa".color(:green) + "\n"
+        io.string.should == Rainbow("aaa").color(:green) + "\n"
       end
 
       context "if logger level is WARN or higher" do
@@ -72,7 +72,7 @@ module HolePicker
       it "should log a message in red" do
         subject.fail 'rrr'
 
-        io.string.should == "rrr".color(:red) + "\n"
+        io.string.should == Rainbow("rrr").color(:red) + "\n"
       end
 
       context "if logger level is ERROR" do
@@ -81,7 +81,7 @@ module HolePicker
         it "should still log the message" do
           subject.fail 'rrr'
 
-          io.string.should == "rrr".color(:red) + "\n"
+          io.string.should == Rainbow("rrr").color(:red) + "\n"
         end
       end
 

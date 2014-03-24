@@ -20,11 +20,11 @@ module HolePicker
     end
 
     def fail(message)
-      error(color ? message.color(:red) : message)
+      error(color ? Rainbow(message).red : message)
     end
 
     def success(message)
-      info(color ? message.color(:green) : message)
+      info(color ? Rainbow(message).green : message)
     end
   end
 
