@@ -1,14 +1,13 @@
 require 'holepicker/database'
 require 'holepicker/logger'
 require 'holepicker/utils'
-require 'net/http'
-require 'net/https'
+require 'open-uri'
 
 module HolePicker
   class OnlineDatabase < Database
     include HasLogger
 
-    URL = 'https://raw.github.com/jsuder/holepicker/master/lib/holepicker/data/data.json'
+    URL = 'https://raw.githubusercontent.com/jsuder/holepicker/master/lib/holepicker/data/data.json'
 
     def self.load
       logger.info "Fetching list of vulnerabilities..."
@@ -32,12 +31,7 @@ module HolePicker
     private
 
     def self.http_get(url)
-      uri = URI(url)
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = url.start_with?('https')
-
-      response = http.get(uri.request_uri)
-      response.body
+      open(url).read
     end
 
     def check_compatibility
