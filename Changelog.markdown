@@ -1,3 +1,7 @@
+#### Version 0.3.3 (28.04.2014)
+
+* fixed a problem with new GitHub raw URL hostname (@elhu)
+
 #### Version 0.3.2 (24.03.2014)
 
 * fixed a problem with the new version of rainbow gem
