@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
 
   s.author = "Jakub Suder"
   s.email = "jakub.suder@gmail.com"
+  s.license = 'MIT'
 
   s.add_dependency 'json', '~> 1.8'
   s.add_dependency 'rainbow', '~> 2.0'
