@@ -8,6 +8,10 @@ HolePicker is a Ruby gem for quickly checking all your `Gemfile.lock` files for 
 &nbsp;
 [![Code Climate](https://codeclimate.com/github/jsuder/holepicker.png)](https://codeclimate.com/github/jsuder/holepicker)
 
+## Important: project status
+
+This project isn't currently maintained. [If someone takes it over](https://github.com/jsuder/holepicker/issues/21) I'll transfer the repo to them, but for now I've disabled the online data file on purpose so that you don't get false reports, since the file isn't updated anymore and is missing some latest vulnerabilities.
+
 ## The story
 
 The beginning of 2013 was a [really bad time](http://www.kalzumeus.com/2013/01/31/what-the-rails-security-issue-means-for-your-startup/) for the Ruby community. In the first few weeks of the year at least 7 serious security issues were found, and Rails had to be updated 4 times so far because of this. It's probably not the end. It's hard to keep track of all the issues and remember which gem versions are OK and which aren't, especially if you have several older and newer Ruby or Rails projects to maintain. So I wrote this tool in order to help with identifying which gems in your projects' gemfiles need to be updated.
